@@ -1,6 +1,6 @@
 {
   "name": "digital-navy",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "lib/index.js",
   "description": "Run lots of fully isolated commands on digital ocean",
   "keywords": [],
