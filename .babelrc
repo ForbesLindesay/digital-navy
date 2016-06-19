@@ -1,0 +1,15 @@
+{
+  "presets": ["forbeslindesay"],
+  "env": {
+    "test": {
+      "plugins": [
+        [
+          "module-alias",
+          [
+            {"src": "./test/then-request-mock.js", "expose": "then-request"}
+          ]
+        ]
+      ]
+    }
+  }
+}
