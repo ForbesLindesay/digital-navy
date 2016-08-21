@@ -3,12 +3,12 @@ import assert from 'assert';
 import Promise from 'promise';
 import shasum from 'shasum';
 import keypair from 'keypair';
-import './ssh-mock';
-import {_disableTimeouts} from '../src/digital-ocean';
+// import './ssh-mock';
+// import {_disableTimeouts} from '../src/digital-ocean';
 import DigitalNavy, {installNode} from '../src';
 
-_disableTimeouts();
-DigitalNavy._mockDate(() => '2016-06-19T01:39:40.763Z');
+// _disableTimeouts();
+// DigitalNavy._mockDate(() => '2016-06-19T01:39:40.763Z');
 
 const script = readFileSync(__dirname + '/example-script.js');
 
@@ -43,8 +43,8 @@ const navy = new DigitalNavy({
   // You can use functions here if you want to have these change over time
   // changes in the return values of those functions will only be taken into
   // account when droplets start or stop executing
-  minPoolSize: 3,
-  maxPoolSize: 4,
+  minSpareShips: 3,
+  maxShips: 4,
 });
 
 function run() {

@@ -26,12 +26,18 @@ export default class SSH {
   }
 
   exec(commands, options = {}) {
+    return this.warm(commands, options).stdin(options.stdin);
+  }
+  warm(commands, options = {}) {
     if (Array.isArray(commands)) commands = commands.join(' && ');
     const debug = (options.debug === undefined ? this._options.debug : options.debug) || false;
 
     if (debug) {
       console.log('ssh-exec: ' + commands);
     }
+
+    let setStdin;
+    const stdin = new Promise(resolve => setStdin = resolve);
 
     const result = this.ready.then(() => {
       return new Promise((resolve, reject) => {
@@ -83,19 +89,29 @@ export default class SSH {
             exitCode = code;
             onEnd();
           });
-          if (options.stdin) {
-            stream.end(options.stdin);
-          }
+          stdin.done(
+            data => {
+              if (data) {
+                stream.end(data);
+              } else {
+                stream.end();
+              }
+            }
+          );
         });
       });
     });
     this.ready = result.then(null, () => {});
-    return result;
+    return {
+      stdin(data) {
+        setStdin(data);
+        return result;
+      },
+    };
   }
 
   close() {
-    const result = this.ready.finally(() => this._connection.end());
     this.ready = Promise.reject(new Error('Cannot interact with a closed connection'));
-    return result;
+    return Promise.resolve(this._connection.end());
   }
 }
