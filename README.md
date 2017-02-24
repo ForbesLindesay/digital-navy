@@ -1,5 +1,7 @@
 # digital-navy
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ForbesLindesay/digital-navy.svg)](https://greenkeeper.io/)
+
 Run lots of fully isolated commands on digital ocean
 
 [![Build Status](https://img.shields.io/travis/ForbesLindesay/digital-navy/master.svg)](https://travis-ci.org/ForbesLindesay/digital-navy)
